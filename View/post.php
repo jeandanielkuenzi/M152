@@ -19,11 +19,17 @@
             <table class="table">
                 <tr>
                     <th><label for="comment">Commentaire :</label></th>
-                    <td><input type="text" name="comment" id="comment" value="<?php if(isset($comment)) echo $comment ?>"></td>
+                    <td>
+                        <input type="text" name="comment" id="comment" value="<?php if(isset($comment)) echo $comment ?>">
+                        <?php if (isset($error['Comment'])) echo '<span class="alert-danger">' . $error['Comment'] . '</span>' ?>
+                    </td>
                 </tr>
                 <tr>
                     <th><label for="picture">Image :</label></th>
-                    <td><input type="file" name="picture" id="picture"></td>
+                    <td>
+                        <input type="file" name="picture" id="picture">
+                        <?php if (isset($error['File'])) echo '<span class="alert-danger">' . $error['File'] . '</span>' ?>
+                    </td>
                 </tr>
                 <tr>
                     <td><input type="submit" name="submit" id="submit" value="Uploader"></td>

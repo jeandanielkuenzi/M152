@@ -10,12 +10,14 @@ require_once '../Model/AppManager.php';
 
 $flagError = true;
 
+$error = array();
+
 $comment = "";
 $file = "";
 $date = "";
 
 if (isset($_POST['comment'])) {
-    $comment = $_POST['comment'];
+    $comment = trim(filter_input(INPUT_POST, 'comment', FILTER_SANITIZE_STRING));
 } else {
     $flagError = true;
 }
@@ -28,12 +30,12 @@ if (isset($_FILES['picture'])) {
 
 if ($comment == "") {
     $flagError = true;
-    $errorComment = true;
+    $error['Comment'] = "Veuillez entrer un commentaire valide !";
 }
 
-if ($file == "") {
+if ($file['name'] == "") {
     $flagError = true;
-    $errorComment = true;
+    $error['File'] = "Veuillez sélectionner une image !";
 }
 
 if (!$flagError) {
@@ -42,6 +44,4 @@ if (!$flagError) {
     AppManager::GetInstance()->UploadPost($comment, $file['name'], $file['type'], $date);
     move_uploaded_file($file['tmp_name'], '../Source/post/' . $file['name']);
     header('location: ./index.php');
-} else {
-    echo 'erreur';
 }

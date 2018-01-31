@@ -7,3 +7,4 @@
  */
 ?>
 <link rel="stylesheet" href="../CSS/bootstrap/css/bootstrap.css">
+<link rel="stylesheet" href="../CSS/mainStyle.css">
