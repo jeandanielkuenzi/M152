@@ -11,7 +11,9 @@
     ?>
 </head>
 <body>
+<header class="container">
 <?php require_once "./navBar.php" ?>
+</header>
 <article class="main">
     <fieldset>
         <legend>Upload</legend>
@@ -20,7 +22,7 @@
                 <tr>
                     <th><label for="comment">Commentaire :</label></th>
                     <td>
-                        <input type="text" name="comment" id="comment" value="<?php if(isset($comment)) echo $comment ?>">
+                        <textarea rows="4" cols="50" name="comment" id="comment" value="<?php if(isset($comment)) echo $comment ?>"></textarea>
                         <?php if (isset($error['Comment'])) echo '<span class="alert-danger">' . $error['Comment'] . '</span>' ?>
                     </td>
                 </tr>

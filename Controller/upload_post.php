@@ -6,9 +6,9 @@
  * Time: 15:11
  */
 
-require_once '../Model/AppManager.php';
+require_once '../Model/inc.all.php';
 
-$flagError = true;
+$flagError = false;
 
 $error = array();
 
@@ -41,7 +41,7 @@ if ($file['name'] == "") {
 if (!$flagError) {
     $date = date('d-m-y');
 
-    AppManager::GetInstance()->UploadPost($comment, $file['name'], $file['type'], $date);
+    PostManager::GetInstance()->UploadPost($comment, $file['type'], $file['name'], $date);
     move_uploaded_file($file['tmp_name'], '../Source/post/' . $file['name']);
     header('location: ./index.php');
 }

@@ -6,9 +6,7 @@
  * Time: 13:50
  */
 ?>
-<header class="navbar">
     <nav class="nav">
-        <li class="nav-item"><a class="nav-link" href="index.php">Home</a></li>
-        <li class="nav-item"><a class="nav-link" href="post.php">Edition</a></li>
+            <li class="nav-item"><a class="nav-link" href="index.php">Home</a></li>
+            <li class="nav-item"><a class="nav-link" href="post.php">Edition</a></li>
     </nav>
-</header>
