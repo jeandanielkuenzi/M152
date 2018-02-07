@@ -11,10 +11,10 @@
     ?>
 </head>
 <body>
-<header class="container">
+<header>
 <?php require_once "./navBar.php" ?>
 </header>
-<article class="main">
+<article class="main container">
     <fieldset>
         <legend>Upload</legend>
         <form method="post" action="#" enctype="multipart/form-data">
@@ -29,7 +29,7 @@
                 <tr>
                     <th><label for="picture">Image :</label></th>
                     <td>
-                        <input type="file" name="picture" id="picture">
+                        <input type="file" accept="image/*" multiple="multiple" name="picture[]" id="picture">
                         <?php if (isset($error['File'])) echo '<span class="alert-danger">' . $error['File'] . '</span>' ?>
                     </td>
                 </tr>

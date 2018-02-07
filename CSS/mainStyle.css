@@ -12,3 +12,8 @@
     color: red;
     font-weight: bold;
 }
+
+.postPicture{
+    width: 300px !important;
+    height: 300px !important;
+}

@@ -10,7 +10,7 @@
 require_once '../Model/Post.php';
 
 /**
- * @brief Helper class pour gérer l'application
+ * @brief Helper class pour gérer les posts
  * @author jean-daniel.knz@eduge.ch
  * @remark
  * @version 1.0.0
@@ -47,18 +47,16 @@ class PostManager
         return self::$objInstance;
     }# end method
 
-    public function LoadAllPost(){
-        $sql = 'SELECT * FROM ' . DB_DBNAME . '.media';
+    public function LoadAllPosts(){
+        $sql = 'SELECT * FROM ' . DB_DBNAME . '.post';
         try {
             $stmt = Database::prepare($sql, array(PDO::ATTR_CURSOR, PDO::CURSOR_SCROLL));
             $stmt->execute();
 
             while($row=$stmt->fetch(PDO::FETCH_ASSOC, PDO::FETCH_ORI_NEXT)) {
-                //
-                $in = new Post($row['idPost'], $row['commentaire'], $row['typeMedia'], $row['nomMedia'], $row['datePost']);
+                $in = new Post($row['idPost'], $currentPost[''], $row['typeMedia'], $row['nomMedia'], $row['datePost']);
                 array_push($this->post, $in);
             } #end while
-
         } catch (PDOExeception $e) {
             echo "PostManager:LoadAllPost Error : " . $e->getMessage();
             return false;
@@ -67,19 +65,34 @@ class PostManager
         return $this->post;
     }
 
-    public function UploadPost($inComment, $inTypeFile, $inNameFile, $inDatePost)
-    {
-        $sql = 'INSERT INTO ' . DB_DBNAME . '.media (commentaire, typeMedia, nomMedia, datePost) values (:co, :tm, :nm, :dp)';
+    public function GetPostById($inId){
+        $sql = 'SELECT * FROM ' . DB_DBNAME . '.post where idPost = :id';
         try {
             $stmt = Database::prepare($sql);
-            $stmt->execute(array(':co' => $inComment, ':tm' => $inTypeFile, ':nm' => $inNameFile, ':dp' => $inDatePost));
+            $stmt->execute(array(':id' => $inId));
+
+            $postById = fetch(PDO::FETCH_ASSOC, PDO::FETCH_ORI_NEXT);
+        } catch (PDOExeception $e) {
+            echo "PostManager:LoadAllPost Error : " . $e->getMessage();
+            return false;
+        }
+        // Return le tableau de tout les commentaires
+        return $postById;
+    }
+
+    public function UploadPost($inComment, $inDatePost)
+    {
+        $sql = 'INSERT INTO ' . DB_DBNAME . '.post (commentaire, datePost) values (:co, :dp)';
+        try {
+            $stmt = Database::prepare($sql);
+            $stmt->execute(array(':co' => $inComment, ':dp' => $inDatePost));
         } catch (PDOException $e) {
             echo "PostManager:UploadPost Error: " . $e->getMessage();
             return false;
         }
     }
 
-    public function GetAllPost() {
+    public function GetAllPosts() {
         return $this->post;
     }
 }

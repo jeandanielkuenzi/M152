@@ -13,7 +13,7 @@ $flagError = false;
 $error = array();
 
 $comment = "";
-$file = "";
+$file = array();
 $date = "";
 
 if (isset($_POST['comment'])) {
@@ -23,7 +23,7 @@ if (isset($_POST['comment'])) {
 }
 
 if (isset($_FILES['picture'])) {
-    $file = $_FILES['picture'];
+        $file = $_FILES['picture'];
 } else {
     $flagError = true;
 }
@@ -33,15 +33,19 @@ if ($comment == "") {
     $error['Comment'] = "Veuillez entrer un commentaire valide !";
 }
 
-if ($file['name'] == "") {
-    $flagError = true;
-    $error['File'] = "Veuillez sélectionner une image !";
+for($i=0; $i < count($file['name']); $i++) {
+    if ($file['name'][$i] == "") {
+        $flagError = true;
+        $error['File'] = "Veuillez sélectionner une image !";
+    }
 }
 
 if (!$flagError) {
-    $date = date('d-m-y');
+    $date = date('y-m-d');
 
     PostManager::GetInstance()->UploadPost($comment, $file['type'], $file['name'], $date);
-    move_uploaded_file($file['tmp_name'], '../Source/post/' . $file['name']);
+    for($i=0; $i < count($file['name']); $i++) {
+        move_uploaded_file($file['tmp_name'], '../Source/post/' . $file['name']);
+    }
     header('location: ./index.php');
 }
