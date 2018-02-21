@@ -12,7 +12,9 @@
  * @remark
  * @version 1.0.0
  */
-class PostManager
+
+require_once '../Model/Media.php';
+class MediaManager
 {
     private static $objInstance;
 
@@ -36,7 +38,7 @@ class PostManager
     {
         if (!self::$objInstance) {
             try {
-                self::$objInstance = new PostManager();
+                self::$objInstance = new MediaManager();
             } catch (Exception $e) {
                 echo "MediaManager Error: " . $e;
             }
@@ -62,27 +64,31 @@ class PostManager
         return $this->media;
     }
 
-    public function GetMediaById($inId){
-        $sql = 'SELECT * FROM ' . DB_DBNAME . '.media where idMedia = :id';
+    public function GetMediasByIdPost($inIdPost){
+        $sql = 'SELECT * FROM ' . DB_DBNAME . '.media where idPost = :id';
         try {
+            $mediaPost = array();
             $stmt = Database::prepare($sql);
-            $stmt->execute(array(':id' => $inId));
+            $stmt->execute(array(':id' => $inIdPost));
 
-            $in = new Media('idMedia', 'typeMedia', 'nomFichierMedia');
+            while($row=$stmt->fetch(PDO::FETCH_ASSOC, PDO::FETCH_ORI_NEXT)) {
+                $in = new Media($row['idMedia'], $row['typeMedia'], $row['nomFichierMedia']);
+                array_push($mediaPost, $in);
+            } #end while
         } catch (PDOExeception $e) {
             echo "PostManager:LoadAllPost Error : " . $e->getMessage();
             return false;
         }
-        // Return le tableau de tout les commentaires
-        return $in;
+        // Return le tableau de tout les medias avec le bon idPost
+        return $mediaPost;
     }
 
-    public function UploadMedia($inTypeFile, $inNameFile)
+    public function UploadMedia($inTypeFile, $inNameFile, $inIdPost)
     {
-        $sql = 'INSERT INTO ' . DB_DBNAME . '.media (typeMedia, nomMedia) values (:tm, :nm)';
+        $sql = 'INSERT INTO ' . DB_DBNAME . '.media (typeMedia, nomFichierMedia, idPost) values (:tm, :nm, :id)';
         try {
             $stmt = Database::prepare($sql);
-            $stmt->execute(array(':tm' => $inTypeFile, ':nm' => $inNameFile));
+            $stmt->execute(array(':tm' => $inTypeFile, ':nm' => $inNameFile, ':id' => $inIdPost));
         } catch (PDOException $e) {
             echo "PostManager:UploadPost Error: " . $e->getMessage();
             return false;

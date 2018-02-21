@@ -17,3 +17,11 @@
     width: 300px !important;
     height: 300px !important;
 }
+
+.postContent{
+    display: inline-block;
+}
+
+.userDisplay{
+    float: left;
+}

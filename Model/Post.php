@@ -51,6 +51,22 @@ class Post
         return $this->date;
     }
 
+    /**
+     * @brief	Getter
+     * @return  Le tableau contenant les medias
+     */
+    public function GetArrayMedias() {
+        return $this->arrayMedias;
+    }
+
+    /**
+     * @brief	Setter
+     * @return  Le tableau contenant les medias
+     */
+    public function SetArrayMedias($inArrayMedias) {
+        $this->arrayMedias = $inArrayMedias;
+    }
+
     /** @brief L'identifiant unique du post */
     private $id;
 

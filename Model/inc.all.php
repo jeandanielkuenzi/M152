@@ -8,3 +8,5 @@
 
 require_once '../database/database.php';
 require_once '../Model/PostManager.php';
+require_once '../Model/MediaManager.php';
+require_once '../Model/AppManager.php';

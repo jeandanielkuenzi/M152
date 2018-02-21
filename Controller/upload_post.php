@@ -41,11 +41,12 @@ for($i=0; $i < count($file['name']); $i++) {
 }
 
 if (!$flagError) {
-    $date = date('y-m-d');
 
-    PostManager::GetInstance()->UploadPost($comment, $file['type'], $file['name'], $date);
+    PostManager::GetInstance()->UploadPost($comment, $file['name']);
+    $idPost = AppManager::GetInstance()->GetLastInsertId(); // Renvoi l'id du dernier post
     for($i=0; $i < count($file['name']); $i++) {
-        move_uploaded_file($file['tmp_name'], '../Source/post/' . $file['name']);
+        MediaManager::GetInstance()->UploadMedia($file['type'][$i], $file['name'][$i], $idPost);
+        move_uploaded_file($file['tmp_name'][$i], '../Source/post/' . $file['name'][$i]);
     }
     header('location: ./index.php');
 }

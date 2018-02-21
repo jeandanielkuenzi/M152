@@ -54,7 +54,8 @@ class PostManager
             $stmt->execute();
 
             while($row=$stmt->fetch(PDO::FETCH_ASSOC, PDO::FETCH_ORI_NEXT)) {
-                $in = new Post($row['idPost'], $currentPost[''], $row['typeMedia'], $row['nomMedia'], $row['datePost']);
+                $in = new Post($row['idPost'], $row['commentaire'], $row['datePost']);
+                $in->SetArrayMedias(MediaManager::GetInstance()->GetMediasByIdPost($in->GetId()));
                 array_push($this->post, $in);
             } #end while
         } catch (PDOExeception $e) {
@@ -80,12 +81,12 @@ class PostManager
         return $postById;
     }
 
-    public function UploadPost($inComment, $inDatePost)
+    public function UploadPost($inComment)
     {
-        $sql = 'INSERT INTO ' . DB_DBNAME . '.post (commentaire, datePost) values (:co, :dp)';
+        $sql = 'INSERT INTO ' . DB_DBNAME . '.post (commentaire) values (:co)';
         try {
             $stmt = Database::prepare($sql);
-            $stmt->execute(array(':co' => $inComment, ':dp' => $inDatePost));
+            $stmt->execute(array(':co' => $inComment));
         } catch (PDOException $e) {
             echo "PostManager:UploadPost Error: " . $e->getMessage();
             return false;
