@@ -19,9 +19,8 @@
     <h1 class="my-4">Bienvenue !</h1>
     <img class="rounded-circle img-fluid" src="../Source/img/profil1.jpg">
 </section>
+
 <article class="main col-lg-12 container">
-
-
     <!-- Team Members Row -->
     <div class="row">
         <div class="col-lg-12">

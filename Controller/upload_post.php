@@ -9,7 +9,7 @@
 require_once '../Model/inc.all.php';
 
 $flagError = false;
-
+$extensions_autorisees = array('image/png', 'image/jpg', 'image/jpeg', 'image/gif');
 $error = array();
 
 $comment = "";
@@ -37,6 +37,9 @@ for($i=0; $i < count($file['name']); $i++) {
     if ($file['name'][$i] == "") {
         $flagError = true;
         $error['File'] = "Veuillez sélectionner une image !";
+    } else if (!(in_array($file['type'][$i], $extensions_autorisees))){
+        $flagError = true;
+        $error['File'] = "Veuillez sélectionner QUE des images !";
     }
 }
 
