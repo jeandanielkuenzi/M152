@@ -8,6 +8,7 @@
  */
 
 require_once '../Model/Post.php';
+require_once '../Model/MediaManager.php';
 
 /**
  * @brief Helper class pour gérer les posts
@@ -81,14 +82,27 @@ class PostManager
         return $postById;
     }
 
-    public function UploadPost($inComment)
+    public function UploadPost($inComment, $file)
     {
         $sql = 'INSERT INTO ' . DB_DBNAME . '.post (commentaire) values (:co)';
+        $db = Database::getInstance();
         try {
-            $stmt = Database::prepare($sql);
+            $db->beginTransaction();
+            $stmt = $db->prepare($sql);
             $stmt->execute(array(':co' => $inComment));
+
+            $idPost = $db->LastInsertId();
+
+            for($i=0; $i < count($file['name']); $i++) {
+                $name = uniqid();
+                MediaManager::GetInstance()->UploadMedia($file['type'][$i], $name, $idPost);
+                move_uploaded_file($file['tmp_name'][$i], '../Source/post/' . $name);
+            }
+
+            $db->commit();
         } catch (PDOException $e) {
             echo "PostManager:UploadPost Error: " . $e->getMessage();
+            $db->rollBack();
             return false;
         }
     }

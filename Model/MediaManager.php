@@ -57,7 +57,7 @@ class MediaManager
                 array_push($this->media, $in);
             } #end while
         } catch (PDOExeception $e) {
-            echo "PostManager:LoadAllMedias Error : " . $e->getMessage();
+            echo "MediaManager:LoadAllMedias Error : " . $e->getMessage();
             return false;
         }
         // Return le tableau de tout les commentaires
@@ -76,7 +76,7 @@ class MediaManager
                 array_push($mediaPost, $in);
             } #end while
         } catch (PDOExeception $e) {
-            echo "PostManager:LoadAllPost Error : " . $e->getMessage();
+            echo "MediaManager:LoadAllPost Error : " . $e->getMessage();
             return false;
         }
         // Return le tableau de tout les medias avec le bon idPost
@@ -86,11 +86,14 @@ class MediaManager
     public function UploadMedia($inTypeFile, $inNameFile, $inIdPost)
     {
         $sql = 'INSERT INTO ' . DB_DBNAME . '.media (typeMedia, nomFichierMedia, idPost) values (:tm, :nm, :id)';
+        $db = Database::getInstance();
         try {
-            $stmt = Database::prepare($sql);
+
+            $stmt = $db->prepare($sql);
             $stmt->execute(array(':tm' => $inTypeFile, ':nm' => $inNameFile, ':id' => $inIdPost));
+
         } catch (PDOException $e) {
-            echo "PostManager:UploadPost Error: " . $e->getMessage();
+            echo "MediaManager:UploadPost Error: " . $e->getMessage();
             return false;
         }
     }

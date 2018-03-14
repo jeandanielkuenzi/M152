@@ -19,7 +19,7 @@
                     <a class="nav-link" href="index.php"><span class="fas fa-home"></span> Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="post.php"><span class="fas fa-plus"></span> Edition</a>
+                    <a class="nav-link" href="post.php"><span class="fas fa-plus"></span> Post</a>
                 </li>
             </ul>
         </div>
