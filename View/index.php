@@ -31,26 +31,56 @@
         </div>
         <?php
             foreach ($allPost as $post){
-                echo '<section id="' . $post->GetId() . '" class="col-lg-12 col-sm-12 col-md-12 text-center postContent"><fieldset class="fieldsetContent">';
+                echo '<section id="' . $post->GetId() . '" class="col-lg-12 col-md-12 col-sm-12 text-center postContent"><fieldset class="fieldsetContent col-lg-6 col-md-6 col-sm-12">';
                 echo '<legend class="legendContent">Posté le ' . $post->GetDate() . '</legend>';
-                $media = $post->GetArrayMedias();
 
+                $active = false;
+                $media = $post->GetArrayMedias();
+                $id = "carousel" . $post->GetId();
+
+                echo '<div id="' . $id . '" class="carousel slide" data-ride="carousel" data-interval="false">';
+
+                echo '<div class="carousel-inner" role="listbox">';
                 for ($i = 0; $i < count($media); $i++){
 
                     $type = $media[$i]->GetFileType();
 
-                    if (in_array($type, $video_extension)){
-                        echo '<video width="320" height="240" autoplay controls loop><source src="../Source/post/' . $media[$i]->GetFileName() . '" type="' . $type . '"></video>';
-                    }
-                    else if(in_array($type, $audio_extension)){
-                        echo '<audio width="320" height="240" controls><source src="../Source/post/' . $media[$i]->GetFileName() . '" type="' . $type . '"></audio>';
-                    }
-                    else {
-                        echo '<img class="rounded-circle img-fluid mx-auto postPicture" src="../Source/post/' . $media[$i]->GetFileName() . '">';
+                    if (!$active) {
+                        echo '<div class="carousel-item active">';
+                        $active = !$active;
+                    } else {
+                        echo '<div class="carousel-item">';
                     }
 
+                    if (in_array($type, $video_extension)){
+                        echo '<video class="postMedia embed-responsive embed-responsive-16by9" autoplay controls loop><source src="../Source/post/' . $media[$i]->GetFileName() . '" type="' . $type . '"></video>';
+                    }
+                    else if(in_array($type, $audio_extension)){
+                        echo '<audio class="" controls><source src="../Source/post/' . $media[$i]->GetFileName() . '" type="' . $type . '"></audio>';
+                    }
+                    else {
+                        echo '<figure class="figure">';
+                        echo '<img class="figure-img img-fluid rounded postMedia" src="../Source/post/' . $media[$i]->GetFileName() . '" alt="" type="' . $type . '">';
+                        echo '</figure>';
+                    }
+
+                    echo '</div>';
                 }
-                echo '<span class="spanPost">' . $post->GetComment() .'</span>';
+                echo '</div>';
+
+                if (count($media) > 1) { // On affiche pas les flêches si il y a qu'un seul media
+                    echo '<a class="carousel-control-prev" href="#' . $id . '" role="button" data-slide="prev">';
+                    echo '<i class="fas fa-arrow-alt-circle-left slideArrow"></i>';
+                    echo '</a>';
+
+                    echo '<a class="carousel-control-next" href="#' . $id . '" role="button" data-slide="next">';
+                    echo '<i class="fas fa-arrow-alt-circle-right slideArrow"></i>';
+                    echo '</a>';
+                }
+
+                echo '</div>';
+
+                echo '<figcaption class="figure-caption">' . $post->GetComment() .'</figcaption>';
                 echo '<a href=""><i class="fas fa-trash-alt"></i></a>';
                 echo '</<fieldset></section>';
         }

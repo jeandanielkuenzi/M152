@@ -14,9 +14,13 @@
     font-weight: bold;
 }
 
-.postPicture{
-    width: 300px !important;
-    height: 300px !important;
+.postMedia{
+    height: -webkit-fill-available;
+}
+
+.slidePost{
+    width: 320px !important;
+    height: 240px !important;
 }
 
 .postContent{
@@ -33,9 +37,12 @@
 }
 
 .fieldsetContent{
-    border: solid black 1px;
-    border-radius: 20px;
     padding: 10px 0px 10px 0px;
+    margin: 10px;
+    border: solid lightgray 1px;
+    border-radius: 20px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .legendContent{
@@ -58,7 +65,7 @@
 
 .fieldsetForm{
     margin: 10px;
-    border: solid black 1px;
+    border: solid lightgray 1px;
     border-radius: 20px;
     padding: 10px 0px 10px 0px;
 }
@@ -76,4 +83,18 @@
     padding-left: 10px;
     padding-right: 10px;
     padding-bottom: 5px;
+}
+
+.slide{
+    max-height: 420px !important;
+}
+
+.slideArrow{
+    width: 25px !important;
+    height: 25px !important;
+    color: #1b1e21;
+}
+
+header{
+    margin-bottom: 60px;
 }

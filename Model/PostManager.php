@@ -87,6 +87,7 @@ class PostManager
         $sql = 'INSERT INTO ' . DB_DBNAME . '.post (commentaire) values (:co)';
         $db = Database::getInstance();
         try {
+            $response = false;
             $db->beginTransaction();
             $stmt = $db->prepare($sql);
             $stmt->execute(array(':co' => $inComment));
@@ -94,12 +95,15 @@ class PostManager
             $idPost = $db->LastInsertId();
 
             for($i=0; $i < count($file['name']); $i++) {
-                $name = uniqid();
+                $name = uniqid() . $idPost;
                 MediaManager::GetInstance()->UploadMedia($file['type'][$i], $name, $idPost);
-                move_uploaded_file($file['tmp_name'][$i], '../Source/post/' . $name);
+                $response = move_uploaded_file($file['tmp_name'][$i], '../Source/post/' . $name);
             }
 
+            if ($response)
             $db->commit();
+            else
+            $db->rollBack();
         } catch (PDOException $e) {
             echo "PostManager:UploadPost Error: " . $e->getMessage();
             $db->rollBack();
