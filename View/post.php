@@ -20,8 +20,8 @@
 <header>
 <?php require_once "./navBar.php" ?>
 </header>
-<section class="container">
-    <fieldset class="fieldsetForm">
+<section class="container col-lg-12 col-md-12 col-sm-12">
+    <fieldset class="fieldsetForm col-lg-6 col-md-12 col-sm-12">
         <legend class="legendForm">Image</legend>
         <form method="post" action="#" enctype="multipart/form-data">
             <table class="table">
@@ -46,7 +46,7 @@
         </form>
     </fieldset>
 
-    <fieldset class="fieldsetForm">
+    <fieldset class="fieldsetForm col-lg-6 col-md-12 col-sm-12">
         <legend class="legendForm">Vidéo</legend>
         <form method="post" action="#" enctype="multipart/form-data">
             <table class="table">
@@ -71,7 +71,7 @@
         </form>
     </fieldset>
 
-    <fieldset class="fieldsetForm">
+    <fieldset class="fieldsetForm col-lg-6 col-md-12 col-sm-12">
         <legend class="legendForm">Audio</legend>
         <form method="post" action="#" enctype="multipart/form-data">
             <table class="table">

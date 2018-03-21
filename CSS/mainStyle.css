@@ -68,6 +68,8 @@
     border: solid lightgray 1px;
     border-radius: 20px;
     padding: 10px 0px 10px 0px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .legendForm{

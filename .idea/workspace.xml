@@ -6,9 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="461a9fdb-0f4f-4c78-a852-e3d419309685" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/CSS/mainStyle.css" afterPath="$PROJECT_DIR$/CSS/mainStyle.css" />
-      <change beforePath="$PROJECT_DIR$/Model/PostManager.php" afterPath="$PROJECT_DIR$/Model/PostManager.php" />
-      <change beforePath="$PROJECT_DIR$/View/includeSource.php" afterPath="$PROJECT_DIR$/View/includeSource.php" />
-      <change beforePath="$PROJECT_DIR$/View/index.php" afterPath="$PROJECT_DIR$/View/index.php" />
       <change beforePath="$PROJECT_DIR$/View/post.php" afterPath="$PROJECT_DIR$/View/post.php" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -33,11 +30,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="mainStyle.css" pinned="false" current-in-tab="true">
+      <file leaf-file-name="mainStyle.css" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/CSS/mainStyle.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="699">
-              <caret line="97" column="0" lean-forward="false" selection-start-line="97" selection-start-column="0" selection-end-line="97" selection-end-column="0" />
+            <state relative-caret-position="597">
+              <caret line="71" column="23" lean-forward="false" selection-start-line="71" selection-start-column="23" selection-end-line="71" selection-end-column="23" />
               <folding />
             </state>
           </provider>
@@ -53,11 +50,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="post.php" pinned="false" current-in-tab="false">
+      <file leaf-file-name="post.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/View/post.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="832">
-              <caret line="96" column="15" lean-forward="false" selection-start-line="96" selection-start-column="15" selection-end-line="96" selection-end-column="15" />
+            <state relative-caret-position="594">
+              <caret line="73" column="62" lean-forward="false" selection-start-line="73" selection-start-column="62" selection-end-line="73" selection-end-column="62" />
               <folding />
             </state>
           </provider>
@@ -170,11 +167,11 @@
         <option value="$PROJECT_DIR$/Controller/upload_picture.php" />
         <option value="$PROJECT_DIR$/Controller/upload_video.php" />
         <option value="$PROJECT_DIR$/Model/MediaManager.php" />
-        <option value="$PROJECT_DIR$/View/post.php" />
         <option value="$PROJECT_DIR$/View/includeSource.php" />
         <option value="$PROJECT_DIR$/View/index.php" />
         <option value="$PROJECT_DIR$/Model/PostManager.php" />
         <option value="$PROJECT_DIR$/CSS/mainStyle.css" />
+        <option value="$PROJECT_DIR$/View/post.php" />
       </list>
     </option>
   </component>
@@ -310,12 +307,12 @@
       <workItem from="1520433585917" duration="1532000" />
       <workItem from="1520435179973" duration="143000" />
       <workItem from="1521028140463" duration="10922000" />
-      <workItem from="1521633387463" duration="10005000" />
+      <workItem from="1521633387463" duration="10727000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="70597000" />
+    <option name="totallyTimeSpent" value="71319000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1696" height="1026" extended-state="6" />
@@ -700,14 +697,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/View/post.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="832">
-          <caret line="96" column="15" lean-forward="false" selection-start-line="96" selection-start-column="15" selection-end-line="96" selection-end-column="15" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/View/index.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="413">
@@ -749,8 +738,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/CSS/mainStyle.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="699">
-          <caret line="97" column="0" lean-forward="false" selection-start-line="97" selection-start-column="0" selection-end-line="97" selection-end-column="0" />
+        <state relative-caret-position="597">
+          <caret line="71" column="23" lean-forward="false" selection-start-line="71" selection-start-column="23" selection-end-line="71" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/View/post.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="594">
+          <caret line="73" column="62" lean-forward="false" selection-start-line="73" selection-start-column="62" selection-end-line="73" selection-end-column="62" />
           <folding />
         </state>
       </provider>
