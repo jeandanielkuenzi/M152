@@ -3,7 +3,100 @@
     margin: 0px;
 }
 
+.main{
+    margin-left: auto;
+    margin-right: auto;
+    float: left;
+}
+
 .error{
     color: red;
     font-weight: bold;
+}
+
+.postMedia{
+    height: -webkit-fill-available;
+}
+
+.slidePost{
+    width: 320px !important;
+    height: 240px !important;
+}
+
+.postContent{
+    display: inline-block !important;
+    float: left;
+}
+
+.spanPost{
+    display: block;
+}
+
+.userDisplay{
+    float: left;
+}
+
+.fieldsetContent{
+    padding: 10px 0px 10px 0px;
+    margin: 10px;
+    border: solid lightgray 1px;
+    border-radius: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.legendContent{
+    display: block;
+    width: auto;
+    max-width: 100%;
+    margin-bottom: .5rem;
+    font-size: 1.5rem;
+    line-height: inherit;
+    color: inherit;
+    white-space: normal;
+    padding-right: 10px;
+    padding-left: 10px;
+    padding-bottom: 5px;
+}
+
+.table th, .table td{
+    border: none;
+}
+
+.fieldsetForm{
+    margin: 10px;
+    border: solid lightgray 1px;
+    border-radius: 20px;
+    padding: 10px 0px 10px 0px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.legendForm{
+    display: block;
+    width: auto;
+    max-width: 100%;
+    margin-bottom: .5rem;
+    font-size: 1.5rem;
+    line-height: inherit;
+    color: inherit;
+    white-space: normal;
+    margin-left: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 5px;
+}
+
+.slide{
+    max-height: 420px !important;
+}
+
+.slideArrow{
+    width: 25px !important;
+    height: 25px !important;
+    color: #1b1e21;
+}
+
+header{
+    margin-bottom: 60px;
 }

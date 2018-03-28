@@ -6,14 +6,14 @@
  * Time: 15:11
  */
 
-require_once '../Model/AppManager.php';
+require_once '../Model/inc.all.php';
 
-$flagError = true;
-
+$flagError = false;
+$extensions_autorisees = array('image/png', 'image/jpg', 'image/jpeg', 'image/gif');
 $error = array();
 
 $comment = "";
-$file = "";
+$file = array();
 $date = "";
 
 if (isset($_POST['comment'])) {
@@ -23,7 +23,7 @@ if (isset($_POST['comment'])) {
 }
 
 if (isset($_FILES['picture'])) {
-    $file = $_FILES['picture'];
+        $file = $_FILES['picture'];
 } else {
     $flagError = true;
 }
@@ -33,15 +33,23 @@ if ($comment == "") {
     $error['Comment'] = "Veuillez entrer un commentaire valide !";
 }
 
-if ($file['name'] == "") {
-    $flagError = true;
-    $error['File'] = "Veuillez sélectionner une image !";
+for($i=0; $i < count($file['name']); $i++) {
+    if ($file['name'][$i] == "") {
+        $flagError = true;
+        $error['File'] = "Veuillez sélectionner une image !";
+    } else if (!(in_array($file['type'][$i], $extensions_autorisees))){
+        $flagError = true;
+        $error['File'] = "Veuillez sélectionner QUE des images !";
+    }
 }
 
 if (!$flagError) {
-    $date = date('d-m-y');
 
-    AppManager::GetInstance()->UploadPost($comment, $file['name'], $file['type'], $date);
-    move_uploaded_file($file['tmp_name'], '../Source/post/' . $file['name']);
+    PostManager::GetInstance()->UploadPost($comment, $file['name']);
+    $idPost = AppManager::GetInstance()->GetLastInsertId(); // Renvoi l'id du dernier post
+    for($i=0; $i < count($file['name']); $i++) {
+        MediaManager::GetInstance()->UploadMedia($file['type'][$i], $file['name'][$i], $idPost);
+        move_uploaded_file($file['tmp_name'][$i], '../Source/post/' . $file['name'][$i]);
+    }
     header('location: ./index.php');
 }

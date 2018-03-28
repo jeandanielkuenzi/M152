@@ -1,35 +1,26 @@
 <?php
 /**
- * Auteur : Jean-Daniel Küenzi
- * Description :
- * Version : 1.0.0
- * Date : 24.01.2018
- * Copyright : M152
+ * Created by PhpStorm.
+ * User: KUENZIJ_INFO
+ * Date: 21.02.2018
+ * Time: 14:38
  */
 
-require_once '../database/database.php';
-
-/**
- * @brief Helper class pour gérer l'application
- * @author jean-daniel.knz@eduge.ch
- * @remark
- * @version 1.0.0
- */
 class AppManager
 {
-
-
     private static $objInstance;
 
     /**
-     * @brief    Class Constructor - Create a new EAppManager if one doesn't exist
-     *    Set to private so no-one can create a new instance via ' = new EAppManager();'
+     * @brief    Class Constructor - Create a new PostManager if one doesn't exist
+     *    Set to private so no-one can create a new instance via ' = new PostManager();'
      */
     private function __construct()
     {
-
+        $this->post = array();
     }
 
+    /** @brief Contient tout les post */
+    private $post;
 
     /**
      * @brief    Retourne notre instance ou la crée
@@ -47,19 +38,13 @@ class AppManager
         return self::$objInstance;
     }# end method
 
-    public static function GetAllPost(){
-
-    }
-
-    public static function UploadPost($inComment, $inTypeFile, $inNameFile, $inDatePost)
-    {
-        $sql = 'INSERT INTO ' . DB_DBNAME . '.media (commentaire, typeMedia, nomMedia, datePost) values (:co, :tm, :nm, :dp)';
-        try {
-            $stmt = Database::prepare($sql);
-            $stmt->execute(array(':co' => $inComment, ':tm' => $inTypeFile, ':nm' => $inNameFile, ':dp' => $inDatePost));
-        } catch (PDOException $e) {
-            echo "AppManager:UploadPost Error: " . $e->getMessage();
-            return false;
+    public function GetLastInsertId(){
+        try{
+            $db = Database::getInstance();
+            $id = $db->lastInsertId();
+        } catch (Exception $e) {
+            echo "AppManager Error:GetLastInsertId " . $e;
         }
+        return $id;
     }
 }
