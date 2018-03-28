@@ -87,6 +87,7 @@ class PostManager
         $sql = 'INSERT INTO ' . DB_DBNAME . '.post (commentaire) values (:co)';
         $db = Database::getInstance();
         try {
+            $arrayName = array();
             $response = false;
             $db->beginTransaction();
             $stmt = $db->prepare($sql);
@@ -98,14 +99,57 @@ class PostManager
                 $name = uniqid() . $idPost;
                 MediaManager::GetInstance()->UploadMedia($file['type'][$i], $name, $idPost);
                 $response = move_uploaded_file($file['tmp_name'][$i], '../Source/post/' . $name);
+                if ($response)
+                    array_push($name, $arrayName);
+                else
+                    break;
             }
 
             if ($response)
             $db->commit();
-            else
-            $db->rollBack();
+            else {
+                $db->rollBack();
+                for ($i=0; $i < count($arrayName); $i++){
+                    unlink('../Source/post/' . $arrayName[$i]);
+                }
+            }
         } catch (PDOException $e) {
             echo "PostManager:UploadPost Error: " . $e->getMessage();
+            $db->rollBack();
+            return false;
+        }
+    }
+
+    public function DeletePostByID($idPost){
+        $sql = 'DELETE * FROM' . DB_DBNAME . '.post WHERE idPost = :idPost';
+        $db = Database::getInstance();
+        try {
+            $db->beginTransaction();
+            $stmt = $db->prepare($sql);
+            $response = false;
+
+            $media = MediaManager::GetInstance()->GetMediasByIdPost($idPost);
+            if ($media != null)
+            $response = MediaManager::GetInstance()->DeleteMediaByIDPost($idPost);
+
+            if ($response != false) {
+                $stmt->execute(array(':idPost' => $idPost));
+                for ($i=0; $i < count($media); $i++){
+                    $response = unlink('../Source/post/' . $media[$i]->GetFileName());
+                    if (!$response){
+                        break;
+                    }
+                }
+
+                if ($response)
+                    $db->commit();
+                else
+                    $db->rollBack();
+            }
+            else
+                $db->rollBack();
+        } catch (PDOException $e) {
+            echo "PostManager:DeletePostByID Error: " . $e->getMessage();
             $db->rollBack();
             return false;
         }

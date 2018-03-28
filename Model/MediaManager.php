@@ -75,12 +75,12 @@ class MediaManager
                 $in = new Media($row['idMedia'], $row['typeMedia'], $row['nomFichierMedia']);
                 array_push($mediaPost, $in);
             } #end while
+            // Return le tableau de tout les medias avec le bon idPost
+            return $mediaPost;
         } catch (PDOExeception $e) {
             echo "MediaManager:LoadAllPost Error : " . $e->getMessage();
             return false;
         }
-        // Return le tableau de tout les medias avec le bon idPost
-        return $mediaPost;
     }
 
     public function UploadMedia($inTypeFile, $inNameFile, $inIdPost)
@@ -91,13 +91,25 @@ class MediaManager
 
             $stmt = $db->prepare($sql);
             $stmt->execute(array(':tm' => $inTypeFile, ':nm' => $inNameFile, ':id' => $inIdPost));
-
+            return true;
         } catch (PDOException $e) {
             echo "MediaManager:UploadPost Error: " . $e->getMessage();
-            return false;
+            throw $e;
         }
     }
 
+    public function DeleteMediaByIDPost($idPost){
+        $sql = 'DELETE * FROM' . DB_DBNAME . '.media WHERE idPost = :idPost';
+        $db = Database::getInstance();
+        try {
+            $stmt = $db->prepare($sql);
+            $stmt->execute(array(':idPost' => $idPost));
+            return true;
+        } catch (PDOException $e) {
+            echo "MediaManager:DeleteMediaByIDPost Error: " . $e->getMessage();
+            return false;
+        }
+    }
 
     public function GetAllMedias() {
         return $this->media;
