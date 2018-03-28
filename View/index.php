@@ -7,6 +7,7 @@
     <?php
         require_once "./includeSource.php";
         require_once "../Model/inc.all.php";
+        require_once "./depetePopup.html";
 
         $allPost = PostManager::GetInstance()->LoadAllPosts();
 
@@ -25,10 +26,7 @@
 </section>
 <article class="main col-lg-10 col-md-10 col-sm-12 container">
     <!-- Team Members Row -->
-    <div class="row">
-        <div class="col-lg-12 col-md-12 col-sm-12">
-            <h2 class="col-lg-12">Post</h2>
-        </div>
+    <section class="row">
         <?php
             foreach ($allPost as $post){
                 echo '<section id="' . $post->GetId() . '" class="col-lg-12 col-md-12 col-sm-12 text-center postContent"><fieldset class="fieldsetContent col-lg-6 col-md-6 col-sm-12">';
@@ -38,18 +36,18 @@
                 $media = $post->GetArrayMedias();
                 $id = "carousel" . $post->GetId();
 
-                echo '<div id="' . $id . '" class="carousel slide" data-ride="carousel" data-interval="false">';
+                echo '<section id="' . $id . '" class="carousel slide" data-ride="carousel" data-interval="false">';
 
-                echo '<div class="carousel-inner" role="listbox">';
+                echo '<section class="carousel-inner" role="listbox">';
                 for ($i = 0; $i < count($media); $i++){
 
                     $type = $media[$i]->GetFileType();
 
                     if (!$active) {
-                        echo '<div class="carousel-item active">';
+                        echo '<section class="carousel-item active">';
                         $active = !$active;
                     } else {
-                        echo '<div class="carousel-item">';
+                        echo '<section class="carousel-item">';
                     }
 
                     if (in_array($type, $video_extension)){
@@ -64,9 +62,9 @@
                         echo '</figure>';
                     }
 
-                    echo '</div>';
+                    echo '</section>';
                 }
-                echo '</div>';
+                echo '</section>';
 
                 if (count($media) > 1) { // On affiche pas les flêches si il y a qu'un seul media
                     echo '<a class="carousel-control-prev" href="#' . $id . '" role="button" data-slide="prev">';
@@ -78,14 +76,25 @@
                     echo '</a>';
                 }
 
-                echo '</div>';
+                echo '</section>';
 
                 echo '<figcaption class="figure-caption">' . $post->GetComment() .'</figcaption>';
-                echo '<a href=""><i class="fas fa-trash-alt"></i></a>';
-                echo '</<fieldset></section>';
+                echo '<a href="" id="' . $post->GetId() . '" class="btn btn-danger deleteLink" data-toggle="modal" data-target="#deleteModal"><i class="fas fa-trash-alt"></i></a>';
+                echo '</fieldset></section>';
         }
         ?>
-    </div>
+    </section>
 </article>
+
 </body>
+<script>
+    $(document).ready(function()
+    {
+        $('#btnDeleteModal').click(function(obj) {
+            var id = obj.currentTarget.id;
+            alert(id);
+            //$.redirect('../Controller/delete_post.php',{idPost: idPost},"POST");
+        });
+    });
+</script>
 </html>
