@@ -73,13 +73,17 @@ class PostManager
             $stmt = Database::prepare($sql);
             $stmt->execute(array(':id' => $inId));
 
-            $postById = fetch(PDO::FETCH_ASSOC, PDO::FETCH_ORI_NEXT);
+            $result = $stmt->fetchAll();
+            if (count($result) > 0) {
+                // Création du countrye avec les données provenant de la base de données
+                $post = new Post($result[0]['idPost'], $result[0]['commentaire'], $result[0]['datePost']);
+                $post->SetArrayMedias(MediaManager::GetInstance()->GetMediasByIdPost($inId));
+                return $post;
+            }
         } catch (PDOExeception $e) {
-            echo "PostManager:LoadAllPost Error : " . $e->getMessage();
+            echo "PostManager:GetPostById Error : " . $e->getMessage();
             return false;
         }
-        // Return le tableau de tout les commentaires
-        return $postById;
     }
 
     public function UploadPost($inComment, $file)
@@ -100,7 +104,7 @@ class PostManager
                 MediaManager::GetInstance()->UploadMedia($file['type'][$i], $name, $idPost);
                 $response = move_uploaded_file($file['tmp_name'][$i], '../Source/post/' . $name);
                 if ($response)
-                    array_push($name, $arrayName);
+                    array_push($arrayName, $name);
                 else
                     break;
             }
@@ -121,7 +125,7 @@ class PostManager
     }
 
     public function DeletePostByID($idPost){
-        $sql = 'DELETE * FROM' . DB_DBNAME . '.post WHERE idPost = :idPost';
+        $sql = 'DELETE FROM ' . DB_DBNAME . '.post WHERE idPost = :idPost';
         $db = Database::getInstance();
         try {
             $db->beginTransaction();
@@ -141,8 +145,10 @@ class PostManager
                     }
                 }
 
-                if ($response)
+                if ($response) {
                     $db->commit();
+                    return true;
+                }
                 else
                     $db->rollBack();
             }

@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Post</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <?php
         require_once './includeSource.php';
         if (isset($_POST['submitPicture'])) {
@@ -20,13 +21,14 @@
 <header>
 <?php require_once "./navBar.php" ?>
 </header>
-<section class="container col-lg-12 col-md-12 col-sm-12">
+<section class="main col-lg-12 col-md-12 col-sm-12 container">
+
     <fieldset class="fieldsetForm col-lg-6 col-md-12 col-sm-12">
         <legend class="legendForm">Image</legend>
         <form method="post" action="#" enctype="multipart/form-data">
             <table class="table">
                 <tr>
-                    <th><label for="comment">Commentaire :</label></th>
+                    <th><label for="commentPicture">Commentaire :</label></th>
                     <td>
                         <textarea rows="4" cols="50" name="commentPicture" id="commentPicture"><?php if(isset($commentPicture)) echo $commentPicture ?></textarea>
                         <?php if (isset($error['CommentPicture'])) echo '<span class="alert-danger">' . $error['CommentPicture'] . '</span>' ?>
@@ -51,7 +53,7 @@
         <form method="post" action="#" enctype="multipart/form-data">
             <table class="table">
                 <tr>
-                    <th><label for="comment">Commentaire :</label></th>
+                    <th><label for="commentVideo">Commentaire :</label></th>
                     <td>
                         <textarea rows="4" cols="50" name="commentVideo" id="commentVideo"><?php if(isset($commentVideo)) echo $commentVideo ?></textarea>
                         <?php if (isset($error['CommentVideo'])) echo '<span class="alert-danger">' . $error['CommentVideo'] . '</span>' ?>
@@ -76,7 +78,7 @@
         <form method="post" action="#" enctype="multipart/form-data">
             <table class="table">
                 <tr>
-                    <th><label for="comment">Commentaire :</label></th>
+                    <th><label for="commentAudio">Commentaire :</label></th>
                     <td>
                         <textarea rows="4" cols="50" name="commentAudio" id="commentAudio"><?php if(isset($commentAudio)) echo $commentAudio ?></textarea>
                         <?php if (isset($error['CommentAudio'])) echo '<span class="alert-danger">' . $error['CommentAudio'] . '</span>' ?>

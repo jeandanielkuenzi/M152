@@ -99,7 +99,7 @@ class MediaManager
     }
 
     public function DeleteMediaByIDPost($idPost){
-        $sql = 'DELETE * FROM' . DB_DBNAME . '.media WHERE idPost = :idPost';
+        $sql = 'DELETE FROM ' . DB_DBNAME . '.media WHERE idPost = :idPost';
         $db = Database::getInstance();
         try {
             $stmt = $db->prepare($sql);

@@ -7,3 +7,19 @@
  */
 
 require_once '../Model/inc.all.php';
+
+$idPost;
+$response = false;
+
+if (isset($_POST['idPost'])){
+    $idPost = $_POST['idPost'];
+}
+
+if ($idPost != null){
+    $post = PostManager::GetInstance()->GetPostById($idPost);
+
+    if ($post != null){
+        $response = PostManager::GetInstance()->DeletePostByID($post->GetId());
+    }
+}
+echo $response;

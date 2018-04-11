@@ -88,13 +88,28 @@
 
 </body>
 <script>
-    $(document).ready(function()
-    {
-        $('#btnDeleteModal').click(function(obj) {
-            var id = obj.currentTarget.id;
-            alert(id);
-            //$.redirect('../Controller/delete_post.php',{idPost: idPost},"POST");
+    $(document).ready(function(){
+
+        function redirectionIndex(params)
+        {
+            //window.location.href = "index.php";
+            var htmlpost =  $(".postContent[id='" + params + "']");
+            $(htmlpost).remove();
+            //displayMessage(false, "Le post a bien été supprimé");
+        }
+
+        /** Delete post **/
+        $(".deleteLink").click(function()
+        {
+            $("#deleteModal").modal("toggle");
+            var idPost = $(this).attr("id");
+
+            $("#btnDeleteModal").click(function()
+            {
+                ELibrary.get_data("../Controller/delete_post.php", redirectionIndex, {'idPost' : idPost});
+            });
         });
+
     });
 </script>
 </html>
